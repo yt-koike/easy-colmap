@@ -1,0 +1,13 @@
+services:
+  easy-colmap:
+    image: docker.io/colmap/colmap:latest
+    volumes:
+      - ./data:/data
+    entrypoint: sh /data/exhaustive.sh
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
