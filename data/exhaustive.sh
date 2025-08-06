@@ -1,5 +1,8 @@
+#/bin/bash
 mkdir /data/sparse
 colmap feature_extractor --image_path /data/images --database_path /data/colmap.db --ImageReader.single_camera_per_folder 1
 colmap exhaustive_matcher --database_path /data/colmap.db
-colmap mapper --image_path /data/images --database_path /data/colmap.db --output_path /data/sparse/
-#colmap model_converter --input_path /data/sparse/0 --output_path /data/sparse_txt/ --output_type TXT
+for d in $(ls /data/sparse/); do
+  mkdir -p /data/sparseTxt/$d
+  colmap model_converter --input_path /data/sparse/$d --output_path /data/sparseTxt/$d --output_type TXT
+done
